@@ -1,15 +1,14 @@
-# sub directory
-SUBDIR := apps/subD
+SUBDIRS := apps/subD apps/subA
 
-.PHONY: all $(SUBDIR)
+.PHONY: all $(SUBDIRS) clean
 
-all:
-	@echo "Choose a target using VSCode Makefile Tools."
+all: $(SUBDIRS)
 
 # go to the sub directory and make
-$(SUBDIR):
-	$(MAKE) -C $@
+$(SUBDIRS):
+    $(MAKE) -C $@
 
 clean:
-	@echo "Cleaning $(SUBDIR)"
-	$(MAKE) -C $(SUBDIR) clean
+    for d in $(SUBDIRS); do \
+        $(MAKE) -C $$d clean; \
+    done
